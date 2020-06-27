@@ -51,9 +51,9 @@ class Router{
                     }
 
              }else{
-                $pathCtrl="./controllers/Controleur.php";
+                $pathCtrl="./controllers/ControllerDefault.php";
                 require_once($pathCtrl);
-                $this->ctrl=new Controleur();
+                $this->ctrl=new ControllerDefault();
                 $this->ctrl->index();
 
              }

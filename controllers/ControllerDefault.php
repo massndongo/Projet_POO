@@ -1,5 +1,5 @@
 <?php
-class Controleur extends Controller {
+class ControllerDefault extends Controller {
 
     public  function __construct(){
         $this->layout="default";
@@ -10,9 +10,4 @@ class Controleur extends Controller {
         $this->view="accueil";
          $this->render();
     }
-    public function menuChambre(){
-        $this->view="enregistrer_chambre";
-        $this->render();
-    }
-
 }

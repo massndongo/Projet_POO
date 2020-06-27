@@ -5,11 +5,11 @@ abstract class Manager implements IDao{
     protected $tableName;
     protected $className;
 
-  private function getConnexion(){
+  public function getConnexion(){
       //Connexion est fermée
       if($this->pdo==null){
           try{
-            $this->pdo = new PDO("mysql:host=localhost;dbname=allocation chambre","root","");
+            $this->pdo = new PDO("mysql:host=localhost;dbname=allocation","root","");
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
           }catch(PDOException $ex){
              die("Erreur de Connexion");
@@ -26,45 +26,73 @@ abstract class Manager implements IDao{
     }
   }
 
-  public function executeUpdate($sql){
-          $this->getConnexion();
-           $nbreLigne= $this->pdo->exec($sql);
-          $this->closeConnexion();
-          return $nbreLigne;
-   }
-
-  public function executeSelect($sql){
-      
+  public function addChambre($sql,$numChambre,$numBatiment,$typeChambre){
     $this->getConnexion();
-    //Traitement
-      $result=$this->pdo->query($sql);
-      $data=[];
-      foreach( $result as $rowBD){
-        //ORM=> tuple BD transformer en Objet
-        $data[]=new $this->className($rowBD);//new User($rowBD)     
+      $req=$this->pdo->prepare($sql);
+      $req->execute(array($numChambre,$numBatiment,$typeChambre));
+      $this->closeConnexion();
+
+  }
+  public function addEtudiant($sql,$matricule,$prenom,$nom,$email,$tel,$adresse,$dateNaissance,$typeEtudiant,$montant){
+    $this->getConnexion();
+      $req=$this->pdo->prepare($sql);
+      $req->execute(array($matricule,$prenom,$nom,$email,$tel,$adresse,$dateNaissance,$typeEtudiant,$montant));
+      if ($req) {
+        echo $sql;
+      }else {
+        echo 'ERREUR';
       }
       $this->closeConnexion();
-      return $data;
 
   }
 
-  public function findAll(){
-    $sql="select * from $this->tableName";
-    $data=$this->executeSelect($sql);
-    var_dump($data);
+  public function executeUpdateNaissance($sql){
+    $this->getConnexion();
+     $nbreLigne= $this->pdo->exec($sql);
+    $this->closeConnexion();
+    return $nbreLigne;
+}
+
+/*public function insertInto($table="chambre", $data=["numChambre"=>"001-1234","numBatiment"=>"001","idTypeChambre"=>1]) {
+
+  $this->getConnexion();
+
+  $champs = '';
+  $marqueurs = '';
+
+    // Boucle pour :
+    // _incrémenter les champs (ex: titre, contenu...)
+    // _incrémenter marqueurs pour la req préparée
+  foreach($data as $key => $value) {
+      $champs .= ''.$key.', ';
+      $marqueurs .= ':'.$key.', ';
   }
-public function findById($id){
-    $sql="select * from $this->tableName where id=$id ";
-    $data=$this->executeSelect($sql);
-    return count($data)==1?$data[0]:$data;
+
+      // Enlever dernière virgule
+  $champs = rtrim($champs, ', ');
+  $marqueurs = rtrim($marqueurs, ', ');
+
+  // ********** requete **********
+  $statement = "INSERT INTO ".$table."(".$champs.")
+                VALUES(".$marqueurs.")";
+  $requete = $db->prepare($statement);
+
+  // Boucle pour incrémenter les bindValue avec les marqueurs de la requete préparée, avec les valeurs
+  foreach($data as $key => $value) {
+      if(is_string($value)) { $pdo_param = PDO::PARAM_STR; } else { $pdo_param = PDO::PARAM_INT; }
+      $requete->bindValue(':'.$key, $value, $pdo_param);
+  }
+
+  $result = $requete->execute();
+  // ********** /requete **********
+
+  // fermer
+  $this->closeConnexion();
+
+  return $result;
+  var_dump($result);
 
 }
-
-public function delete($id){
-    $sql="delete from $this->tableName where id=$id";
-    return $this->executeUpdate($sql)!=0;
-}
-
 
 
 
@@ -72,8 +100,8 @@ public function delete($id){
     //Connexion
     //FermerConnexion
     //Executer une requete et Retourner un Résultat
-       //Execution Requete MaJ(Insert,Update,delete)
-       //Execution requete Select
+       //Execution Requete MaJ(Insert,UpdateNaissance,delete)
+       //Execution requete Select */
 
     
 }

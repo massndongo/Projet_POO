@@ -24,30 +24,29 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link mx-5" href="<?=BASE_URL?>/Controleur/menuChambre">Enrégistrer</a>
+                <a class="nav-link mx-5" href="<?=BASE_URL?>/ControllerChambre/saveChambre">Enrégistrer</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-5" href="#">Lister</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link mx-5" href="#" >Rechercher</a>
-              </li>
             </ul>
           </div>
         </nav>
-             <form method="post">
+             <form method="post" id="form">
                  <div class="form-group p-3 ">
                   
-                   <input disabled="disabled" class="form-control input" name="numChambre" id="nom" placeholder="NUMERO CHAMBRE">
+                   <input disabled="disabled" type="text" class="form-control input" name="numChambre" id="num" placeholder="NUMERO CHAMBRE">
                  </div>
                  
                  <div class="form-group p-3">
                   
-                   <input type="number" class="form-control input" name="numBatiment" id="numBatiment" placeholder="NUMERO BATIMENT">
-                 </div>
+                   <input type="number" class="form-control input" name="numBatiment" id="numbat" placeholder="NUMERO BATIMENT">
+                   <span id="numbat_error"></span>
+                  </div>
                  
                  <div class="form-group p-3">
-                   <select id="selection" class="form-control input">
+                   <select id="selection" class="form-control input" name="typeChambre">
+                   <span id="selection_error"></span>
                      <option value="">Type de Chambre</option>
                      <option value="individuel">INDIVIDUEL</option>
                        <option value="deux">A DEUX</option>
@@ -60,9 +59,5 @@
                  </div>
              </form>
     </body>
-    <script>
-      $(document).ready(function(e){
-
-      })
-    </script>
+    <script src="<?=BASE_URL?>/public/js/script.js"></script>
 </html>

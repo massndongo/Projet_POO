@@ -26,19 +26,19 @@
         <h2 class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</h2>
         <ul class="nav flex-column bg-white mb-0">
             <li class="nav-item">
-              <a href="#" class="nav-link p-5 text-dark font-bold">
+              <a href="<?=BASE_URL?>/ControllerDefault/index" class="nav-link p-5 text-dark font-bold">
                         <i class="fa fa-th-large mr-3"><span class="iconify" data-inline="false" data-icon="ant-design:appstore-outlined"></span></i>
                         Accueil
                     </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link p-5  text-dark font-bold">
+              <a href="<?=BASE_URL?>/ControllerEtudiant/saveEtudiant" class="nav-link p-5  text-dark font-bold">
                         <i class="fa fa-address-card mr-3"><span class="iconify" data-inline="false" data-icon="noto-v1:man-student-medium-light-skin-tone"></span></i>
                         Etudiant
                     </a>
             </li>
             <li class="nav-item">
-              <a href="<?=BASE_URL?>/Controleur/menuChambre" class="nav-link p-5 text-dark font-bold">
+              <a href="<?=BASE_URL?>/ControllerChambre/saveChambre" class="nav-link p-5 text-dark font-bold">
                         <i class="fa fa-cubes mr-3 fa-fw"><span class="iconify" data-inline="false" data-icon="dashicons:admin-home"></span></i>
                         Chambre
                     </a>
