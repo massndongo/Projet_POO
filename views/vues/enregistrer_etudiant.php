@@ -43,23 +43,23 @@
                   </div>
                  <div class="form-group p-3">
                    <input type="text" class="form-control input" name="prenom" id="prenom" placeholder="Prenoms">
-                   <span id="prenom_error"></span>
+                   <span id="prenom_error" class="font-weight-bold"></span>
                   </div>
                  <div class="form-group p-3">
                    <input type="text" class="form-control input" name="nom" id="nom" placeholder="Nom">
-                   <span id="nom_error"></span>
+                   <span id="nom_error" class="font-weight-bold"></span>
                   </div>                 
                   <div class="form-group p-3">
                    <input type="text" class="form-control input" name="email" id="email" placeholder="Email">
-                   <span id="email_error"><?=@$error['email']?></span>
+                   <span id="email_error" class="text-danger font-weight-bold"><?=isset($error['email']) ? $error['email']  : "" ?></span>
                   </div>                 
                   <div class="form-group p-3">
                    <input type="text" class="form-control input" name="tel" id="tel" placeholder="Telephone">
-                   <span id="tel_error"><?=@$error['tel']?></span>
+                   <span id="tel_error" class="text-danger font-weight-bold"><?=isset($error['tel']) ? $error['tel']  : "" ?></span>
                   </div>
                   <div class="form-group p-3">
                    <input type="date" class="form-control input" name="dateNaissance" id="date" placeholder="Date de Naissance">
-                   <span id="date_error"></span>
+                   <span id="date_error" class="font-weight-bold"></span>
                   </div>
                  <div class="form-group p-3">
                    <select id="selection" class="form-control input" name="typeEtudiant">
@@ -83,22 +83,18 @@
     $(document).ready(function(){
       $('#selection').change(function(){
           if ($('#selection').val()==='NonLoger') {
-          $( ".adresse" ).append( '<input type="text" class="form-control input" name="adresse" id="adresse" placeholder="Adresse"><span id="adresse_error"></span>' );
+          $( ".adresse" ).append( '<input type="text" class="form-control input" name="adresse" id="adresse" placeholder="Adresse"><span id="adresse_error" class="font-weight-bold"></span>' );
         }else if ($('#selection').val()==='Loger' || $('#selection').val()==='Boursier'){
-              $( ".adresse" ).append( '<input type="text" class="form-control input" name="montant" id="montant" placeholder="Montant Bourse"><span id="montant_error"></span>' );
+              $( ".adresse" ).append( '<input type="text" class="form-control input" name="montant" id="montant" placeholder="Montant Bourse"><span id="montant_error" class="font-weight-bold"></span>' );
             }
       });
       $("#prenom_error").hide();
       $("#nom_error").hide();
-      $("#email_error").hide();
-      $("#tel_error").hide();
       $("#date_error").hide();
 
 
     var error_prenom = false;
     var error_nom = false;
-    var error_email = false;
-    var error_tel = false;
     var error_date = false;
 
     function check_prenom() {
@@ -121,26 +117,7 @@
           $("#nom_error").hide();
       }
     }
-    function check_email() {
-      var email_length = $("#email").val().length;
-      if(email_length < 1) {
-          $("#email_error").html("<p style='color:red;'>champ obligatoire</p>");
-          $("#email_error").show();
-          error_email= true;
-      }else {
-          $("#email_error").hide();
-      }
-    }
-    function check_tel() {
-      var tel_length = $("#tel").val().length;
-      if(tel_length < 1) {
-          $("#tel_error").html("<p style='color:red;'>champ obligatoire</p>");
-          $("#tel_error").show();
-          error_tel= true;
-      }else {
-          $("#tel_error").hide();
-      }
-    }
+
     function check_date() {
       var date_length = $("#date").val().length;
       if(date_length < 1) {
@@ -160,12 +137,6 @@
     $("#nom").focusout(function() {
       check_nom();
     });
-    $("#email").focusout(function() {
-      check_email();
-    });
-    $("#tel").focusout(function() {
-      check_tel();
-    });
     $("#date").focusout(function() {
       check_date();
     });
@@ -175,18 +146,14 @@
    
       error_prenom = false;
       error_nom = false;
-      error_email = false;
-      error_tel = false;
       error_date = false;
  
  
    check_prenom();
    check_nom();
-   check_email();
-   check_tel();
    check_date();
 
-   if(error_prenom == false && error_nom == false && error_email == false && error_tel == false && error_date == false) {
+   if(error_prenom == false && error_nom == false && error_date == false) {
        return true;
    }else {
        return false;

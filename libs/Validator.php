@@ -18,7 +18,7 @@ class Validator{
     }
 
     public function isEmail($champ,$key,$sms="Email Invalide"){
-      if (preg_match('^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]{2,6}$)',$champ)) {
+      if (preg_match('#^[a-zA-Z]+\@[a-zA-Z]+\.[a-zA-Z]{2,6}#',$champ)) {
          $this->errors[$key]='';
       }else {
          $this->errors[$key]=$sms;
