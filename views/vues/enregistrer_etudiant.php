@@ -38,8 +38,7 @@
         </nav>
              <form method="post" id="formEtudiant">
              <div class="form-group p-3">
-                   <input type="text" class="form-control input" name="matricule" id="matricule" placeholder="Matricule">
-                   <span id="matricule_error"></span>
+                   <input disabled="disabled" type="text" class="form-control input" name="matricule" id="matricule" placeholder="Matricule">
                   </div>
                  <div class="form-group p-3">
                    <input type="text" class="form-control input" name="prenom" id="prenom" placeholder="Prenoms">

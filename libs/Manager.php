@@ -37,11 +37,6 @@ abstract class Manager implements IDao{
     $this->getConnexion();
       $req=$this->pdo->prepare($sql);
       $req->execute(array($matricule,$prenom,$nom,$email,$tel,$adresse,$dateNaissance,$typeEtudiant,$montant));
-      if ($req) {
-        echo $sql;
-      }else {
-        echo 'ERREUR';
-      }
       $this->closeConnexion();
 
   }
