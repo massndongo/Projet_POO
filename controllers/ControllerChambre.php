@@ -36,4 +36,29 @@ class ControllerChambre extends Controller{
         $this->render();
 
     }
+    public function listChambre(){
+        $this->dao=new ChambreDao();
+        $data=[];
+        $data=$this->dao->findAll();
+        $this->data_view["data"]=$data;
+        $this->view="list_chambre";
+        $this->render();
+    }
+    public function deleteChambre(){
+
+        $this->dao=new ChambreDao();
+        $data=$this->dao->findAll();
+        $this->data_view["data"]=$data;
+        foreach ($data as $key => $value) {
+            $d=$value->getnumChambre();
+            $this->dao->supprimerChambre($d);
+        }
+        $this->view="list_chambre";
+        $this->render();
+
+
+    }
+    public function updateChambre(){
+        
+    }
 }

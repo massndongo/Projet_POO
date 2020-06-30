@@ -1,5 +1,5 @@
 <?php
-class chambre{
+class Chambre{
 
     private $numChambre;
     private $numBatiment;
@@ -17,6 +17,9 @@ class chambre{
        $this->numChambre=$row['numChambre']; 
        $this->numBatiment=$row['numBatiment']; 
        $this->typeChambre=$row['typeChambre']; 
+    }
+    public function __toString(){
+        return $this->numChambre;
     }
     
     public function getnumBatiment(){

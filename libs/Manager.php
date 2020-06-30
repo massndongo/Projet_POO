@@ -25,6 +25,20 @@ abstract class Manager implements IDao{
       $this->pdo=null;
     }
   }
+  public function executeSelect($sql){
+      
+    $this->getConnexion();
+    //Traitement
+      $result=$this->pdo->query($sql);
+      $data=[];
+      foreach( $result as $rowBD){
+        //ORM=> tuple BD transformer en Objet
+        $data[]=new $this->className($rowBD);//new User($rowBD)     
+      }
+      $this->closeConnexion();
+      return $data;
+
+  }
 
   public function addChambre($sql,$numChambre,$numBatiment,$typeChambre){
     $this->getConnexion();
@@ -41,62 +55,45 @@ abstract class Manager implements IDao{
 
   }
 
-  public function executeUpdateNaissance($sql){
+  public function executeUpdate($sql){
     $this->getConnexion();
      $nbreLigne= $this->pdo->exec($sql);
     $this->closeConnexion();
     return $nbreLigne;
 }
+public function findAll(){
+  $sql="select * from $this->tableName";
+  $data=$this->executeSelect($sql);
+  return $data;
+}
+public function findById($id){
+  $sql="select * from $this->tableName where id=$id ";
+  $data=$this->executeSelect($sql);
+  return count($data)==1?$data[0]:$data;
 
-/*public function insertInto($table="chambre", $data=["numChambre"=>"001-1234","numBatiment"=>"001","idTypeChambre"=>1]) {
+}
 
-  $this->getConnexion();
+public function delete($nom,$id){
+  $sql="delete from $this->tableName where $nom=$id";
+  return $this->executeUpdate($sql)!=0;
+}
 
-  $champs = '';
-  $marqueurs = '';
-
-    // Boucle pour :
-    // _incrémenter les champs (ex: titre, contenu...)
-    // _incrémenter marqueurs pour la req préparée
-  foreach($data as $key => $value) {
-      $champs .= ''.$key.', ';
-      $marqueurs .= ':'.$key.', ';
+function getPrepUp($data,$idName="id",$where=null){	
+  $prep="UPDATE `".$data['table']."` SET `".$data[CHAMP]."`='".$data['val']."' WHERE $idName=?";
+  $w="";
+  if($where){
+      foreach ($where as $name) {
+          $w .= " AND $name=?";
+      } 
+      $prep .= $w;
   }
-
-      // Enlever dernière virgule
-  $champs = rtrim($champs, ', ');
-  $marqueurs = rtrim($marqueurs, ', ');
-
-  // ********** requete **********
-  $statement = "INSERT INTO ".$table."(".$champs.")
-                VALUES(".$marqueurs.")";
-  $requete = $db->prepare($statement);
-
-  // Boucle pour incrémenter les bindValue avec les marqueurs de la requete préparée, avec les valeurs
-  foreach($data as $key => $value) {
-      if(is_string($value)) { $pdo_param = PDO::PARAM_STR; } else { $pdo_param = PDO::PARAM_INT; }
-      $requete->bindValue(':'.$key, $value, $pdo_param);
-  }
-
-  $result = $requete->execute();
-  // ********** /requete **********
-
-  // fermer
-  $this->closeConnexion();
-
-  return $result;
-  var_dump($result);
-
+  return $prep;	
 }
 
 
 
 
-    //Connexion
-    //FermerConnexion
-    //Executer une requete et Retourner un Résultat
-       //Execution Requete MaJ(Insert,UpdateNaissance,delete)
-       //Execution requete Select */
+
 
     
 }

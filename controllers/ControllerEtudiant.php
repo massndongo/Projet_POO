@@ -58,4 +58,12 @@ class ControllerEtudiant extends Controller{
            $this->menuEtudiant();
         }
     }
+    public function listEtudiant(){
+        $this->dao=new EtudiantDao();
+        $data=[];
+        $data=$this->dao->findAll();
+        $this->data_view["data"]=$data;
+        $this->view="list_etudiant";
+        $this->render(); 
+    }
 }

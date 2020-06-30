@@ -24,10 +24,10 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link mx-5" href="<?=BASE_URL?>/ControllerChambre/saveChambre">Enrégistrer</a>
+                <a class="nav-link mx-5" href="<?=BASE_URL?>/ControllerChambre/saveChambre">Enrégistrer Chambre</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-5" href="#">Lister</a>
+                <a class="nav-link mx-5" href="<?=BASE_URL?>/ControllerChambre/listChambre">Liste Chambre</a>
               </li>
             </ul>
           </div>
@@ -41,18 +41,17 @@
                  <div class="form-group p-3">
                   
                    <input type="number" class="form-control input" name="numBatiment" id="numbat" placeholder="NUMERO BATIMENT">
-                   <span id="numbat_error"></span>
+                   <span id="numbat_error" class="font-weight-bold"></span>
                   </div>
                  
                  <div class="form-group p-3">
                    <select id="selection" class="form-control input" name="typeChambre">
-                   <span id="selection_error"></span>
                      <option value="">Type de Chambre</option>
                      <option value="individuel">INDIVIDUEL</option>
                        <option value="deux">A DEUX</option>
-                       
                      </optgroup>
                    </select>
+                   <span id="selection_error" class="font-weight-bold"></span>
                  </div>
                  <div class="form-group p-5"> 
                   <button class="btn btn-primary" name="btnFormChambre" id="btnFormChambre" type="submit">Enregistrer</button>
